@@ -1,0 +1,58 @@
+enum Sexe{
+    MASCULIN,
+    FEMININ
+}
+
+enum Etat {
+    INSCRIT,
+    NON_INSCRIT
+}
+
+entity Tuteur(tuteurs) {
+    prenom String required minlength(2) maxlength(30),
+    nom String required  minlength(2) maxlength(30),
+    adresse TextBlob required,
+    email String required unique,
+    sexe Sexe required 
+}
+
+entity Inscription(inscriptions) {
+    dateInscription Instant required,
+    classe String required,
+    transport Boolean,
+    groupeTransport String,
+    cantine Boolean,
+    groupeCantine String,
+    paiement String required,
+    statut Etat required
+}
+
+entity Eleve(eleves) {
+    photo ImageBlob,
+    matricule String required minlength(2) maxlength(30),
+    prenom String required minlength(2) maxlength(30),
+    nom String required minlength(2) maxlength(30),
+    sexe Sexe required,
+    adresse TextBlob required,
+    telephone String unique minlength(2) maxlength(12),
+    email String unique,
+    dateNaissance LocalDate required,
+    lieuNaissance String required
+}
+
+entity Annee(annees) {
+    nom String required minlength(4) maxlength(12)
+    dateDebut LocalDate required,
+    dateFin LocalDate required
+}
+
+relationship ManyToOne{
+    Eleve{tuteur} to Tuteur,
+    Inscription{eleve} to Eleve,
+    Inscription{annee} to Annee
+
+}
+paginate all with pagination
+service all with serviceImpl 
+dto all with mapstruct
+filter all

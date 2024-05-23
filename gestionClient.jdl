@@ -1,0 +1,9 @@
+entity Client(clients) {
+    photo ImageBlob,
+    prenom String required minlength(2) maxlength(30),
+    nom String required minlength(2) maxlength(30),
+    sexe Sexe required,
+    adresse TextBlob required,
+    telephone String unique minlength(2) maxlength(12),
+    email String unique,
+}

@@ -1,0 +1,22 @@
+
+@filter
+@service(serviceImpl)
+@dto(mapstruct)
+@paginate(pagination)
+entity GroupeCantine(groupecantines){
+	nom String required unique minlength(3) maxlength(10),
+    nombreEleves Integer required
+}
+
+@filter
+@service(serviceImpl)
+@dto(mapstruct)
+@paginate(pagination)
+entity Cantine(cantines) {
+	libelle String required minlength(3) maxlength(10),
+    nombreGroupe Integer required
+}
+
+relationship OneToMany {
+    Cantine{groupecantines} to GroupeCantine{cantine}
+}
